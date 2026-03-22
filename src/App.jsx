@@ -75,7 +75,6 @@ const App = () => {
           <MiniPreview data={state} totals={totals} />
         )}
         
-        <PaymentSection />
       </div>
     </div>
   );
