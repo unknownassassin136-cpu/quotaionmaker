@@ -2,7 +2,9 @@ import React from 'react';
 
 const MiniPreview = ({ data, totals }) => {
   return (
-    <div className="mini-preview">
+
+<div className="mini-preview" id="mini-preview">
+
       <div style={{ 
         display: 'flex', 
         justifyContent: 'space-between', 

@@ -24,9 +24,21 @@ const App = () => {
     setState(defaultData);
   }, []);
 
-  const exportCurrentPDF = useCallback(() => {
-    exportPDF(state);
-  }, [state]);
+
+
+  const exportCurrentPDF = useCallback(async () => {
+    // Force preview render temporarily for export
+    setViewMode("preview");
+    await new Promise(resolve => setTimeout(resolve, 100)); // Wait for render
+    
+    const id = previewType === "a4" ? "a4-preview" : "mini-preview";
+    exportPDF(id);
+    
+    // Return to editor
+    setTimeout(() => setViewMode("editor"), 500);
+  }, [previewType]);
+
+
 
   const totals = calculateTotals(state.items, state.charges);
 
