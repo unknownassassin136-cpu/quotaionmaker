@@ -2,9 +2,7 @@ import React from 'react';
 
 const HeaderActions = ({
   quotationNumber,
-  previewMode,
-  onQuotationNumberChange,
-  onPreviewModeChange,
+  onPreview,
   onReset,
   onExport
 }) => {
@@ -18,13 +16,9 @@ const HeaderActions = ({
         style={{ minWidth: '200px' }}
       />
       
-      <select
-        value={previewMode}
-        onChange={(e) => onPreviewModeChange(e.target.value)}
-      >
-        <option value="A4">A4 Preview</option>
-        <option value="MINI">Mini Preview</option>
-      </select>
+      <button className="btn btn-primary" onClick={onPreview}>
+        Preview
+      </button>
       
       <button className="btn btn-success" onClick={onExport}>
         Export PDF

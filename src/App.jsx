@@ -1,16 +1,19 @@
 import React, { useState, useCallback } from 'react';
+import HeaderActions from './components/HeaderActions';
 import BillingForm from './components/BillingForm';
 import ItemsEditor from './components/ItemsEditor';
 import TotalsBox from './components/TotalsBox';
-import HeaderActions from './components/HeaderActions';
+import PreviewHeader from './components/PreviewHeader';
 import PreviewA4 from './components/PreviewA4';
 import MiniPreview from './components/MiniPreview';
+import PaymentSection from './components/PaymentSection';
 import defaultData from './data/defaultData';
 import { calculateTotals } from './utils/calculations.js';
 import { exportPDF } from './utils/pdfExport.js';
 
 const App = () => {
   const [state, setState] = useState(defaultData);
+  const [viewMode, setViewMode] = useState('editor');
   const [previewMode, setPreviewMode] = useState('A4');
 
   const updateState = useCallback((updates) => {
@@ -27,14 +30,13 @@ const App = () => {
 
   const totals = calculateTotals(state.items, state.charges);
 
-  return (
-    <div className="app">
-      <div className="editor-panel">
+  if (viewMode === 'editor') {
+    return (
+      <div className="app editor-mode">
         <HeaderActions
           quotationNumber={state.quotationInfo.quotationNumber}
-          previewMode={previewMode}
           onQuotationNumberChange={(num) => updateState({ quotationInfo: { ...state.quotationInfo, quotationNumber: num } })}
-          onPreviewModeChange={setPreviewMode}
+          onPreview={() => setViewMode('preview')}
           onReset={resetForm}
           onExport={exportCurrentPDF}
         />
@@ -57,13 +59,21 @@ const App = () => {
           onChargesChange={(charges) => updateState({ charges })}
         />
       </div>
+    );
+  }
+
+  return (
+    <div className="app preview-mode">
+      <PreviewHeader onBackToEditor={() => setViewMode('editor')} />
       
-      <div className="preview-panel">
+      <div className="preview-container">
         {previewMode === 'A4' ? (
           <PreviewA4 data={state} totals={totals} />
         ) : (
           <MiniPreview data={state} totals={totals} />
         )}
+        
+        <PaymentSection />
       </div>
     </div>
   );

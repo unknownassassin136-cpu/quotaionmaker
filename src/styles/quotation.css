@@ -12,31 +12,44 @@ body {
 }
 
 .app {
-  display: flex;
   min-height: 100vh;
-  gap: 2rem;
   padding: 2rem;
-  max-width: 2000px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
-.editor-panel {
-  flex: 1;
+.app.editor-mode {
+  display: block;
   background: white;
   border-radius: 12px;
-  padding: 2rem;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  overflow-y: auto;
-  max-height: 90vh;
+  padding: 2rem;
 }
 
-.preview-panel {
-  flex: 1.2;
+.app.preview-mode {
   background: white;
   border-radius: 12px;
-  padding: 2rem;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  overflow: hidden;
+  padding: 2rem;
+}
+
+.editor-panel {
+  width: 100%;
+}
+
+.preview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 40px 0;
+}
+
+.preview-header {
+  width: 100%;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid #f3f4f6;
+  margin-bottom: 2rem;
 }
 
 .header-actions {
@@ -47,8 +60,8 @@ body {
   flex-wrap: wrap;
 }
 
-.header-actions select,
-.header-actions input {
+.header-actions input,
+.header-actions select {
   padding: 0.75rem 1rem;
   border: 2px solid #e1e5e9;
   border-radius: 8px;
@@ -255,36 +268,20 @@ body {
   font-weight: bold !important;
 }
 
-.signature-section {
-  margin-top: 50px;
-  display: flex-end;
-  justify-content: space-between;
-}
-
-.signature-box {
-  width: 200px;
-  height: 80px;
-  border-bottom: 1px solid #000;
-  text-align: center;
-  font-size: 11px;
-}
-
 .qr-section {
   text-align: center;
   margin-top: 30px;
-  display: flex-end;
-  justify-content: space-between;
 }
 
 .qr-placeholder {
-  width: 120px;
-  height: 120px;
-  background: #f3f4f6;
-  margin-left: 100px;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 10px;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #f3f4f6;
 }
 
 .mini-preview {
@@ -293,6 +290,7 @@ body {
   padding: 20px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.2);
   border-radius: 8px;
+  margin: 0 auto;
 }
 
 .totals-grid {
@@ -304,7 +302,6 @@ body {
 
 @media (max-width: 768px) {
   .app {
-    flex-direction: column;
     padding: 1rem;
   }
   
@@ -319,12 +316,3 @@ body {
   }
 }
 
-
-/* .payment-section {
-  background: white;
-  padding: 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  border-radius: 8px;
-  max-width: 400px;
-  margin: 20px auto;
-} */
