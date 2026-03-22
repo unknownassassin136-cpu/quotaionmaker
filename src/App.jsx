@@ -13,8 +13,8 @@ import { exportPDF } from './utils/pdfExport.js';
 
 const App = () => {
   const [state, setState] = useState(defaultData);
-  const [viewMode, setViewMode] = useState('editor');
-  const [previewMode, setPreviewMode] = useState('A4');
+  const [viewMode, setViewMode] = useState("editor");
+  const [previewType, setPreviewType] = useState("a4");
 
   const updateState = useCallback((updates) => {
     setState(prev => ({ ...prev, ...updates }));
@@ -30,13 +30,15 @@ const App = () => {
 
   const totals = calculateTotals(state.items, state.charges);
 
-  if (viewMode === 'editor') {
+  if (viewMode === "editor") {
     return (
       <div className="app editor-mode">
         <HeaderActions
           quotationNumber={state.quotationInfo.quotationNumber}
+          previewType={previewType}
           onQuotationNumberChange={(num) => updateState({ quotationInfo: { ...state.quotationInfo, quotationNumber: num } })}
-          onPreview={() => setViewMode('preview')}
+          onPreviewTypeChange={setPreviewType}
+          onPreview={() => setViewMode("preview")}
           onReset={resetForm}
           onExport={exportCurrentPDF}
         />
@@ -64,10 +66,10 @@ const App = () => {
 
   return (
     <div className="app preview-mode">
-      <PreviewHeader onBackToEditor={() => setViewMode('editor')} />
+      <PreviewHeader onBackToEditor={() => setViewMode("editor")} />
       
       <div className="preview-container">
-        {previewMode === 'A4' ? (
+        {previewType === "a4" ? (
           <PreviewA4 data={state} totals={totals} />
         ) : (
           <MiniPreview data={state} totals={totals} />

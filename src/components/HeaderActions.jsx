@@ -1,7 +1,11 @@
 import React from 'react';
 
+
 const HeaderActions = ({
   quotationNumber,
+  previewType,
+  onQuotationNumberChange,
+  onPreviewTypeChange,
   onPreview,
   onReset,
   onExport
@@ -15,6 +19,15 @@ const HeaderActions = ({
         placeholder="Quotation Number"
         style={{ minWidth: '200px' }}
       />
+      
+      <select
+        value={previewType}
+        onChange={(e) => onPreviewTypeChange(e.target.value)}
+        style={{ minWidth: '160px' }}
+      >
+        <option value="a4">A4 Preview</option>
+        <option value="mini">Mini Preview</option>
+      </select>
       
       <button className="btn btn-primary" onClick={onPreview}>
         Preview
@@ -30,5 +43,6 @@ const HeaderActions = ({
     </div>
   );
 };
+
 
 export default HeaderActions;
